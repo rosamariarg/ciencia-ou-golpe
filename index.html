@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>Ciência ou Golpe? | Dra. Rosamaria Gomes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Forum&family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    color-scheme: only light;
+    --ink: #091742;
+    --paper: #faf7f0;
+    --gold: #A79258;
+    --gold-text: #7d6e3d;
+    --gold-soft: #f1ecdd;
+    --green: #497C32;
+    --amber: #8a5d14;
+    --red: #b3322f;
+    --violet: #091742;
+    --violet-text: #091742;
+    --violet-soft: #ece8d9;
+    --muted: #46506a;
+    --line: #ddd4c0;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    max-width: 540px;
+    margin: 0 auto;
+    padding: 0 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---- Screens ---- */
+  .screen { display: none; flex: 1; flex-direction: column; padding: 32px 0 48px; animation: fade .45s ease; }
+  .screen.active { display: flex; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* ---- Intro ---- */
+  .brand-mark { display: flex; align-items: center; margin-bottom: 36px; }
+  .brand-mark .rg-logo { height: 56px; width: auto; display: block; }
+  .brand-mark .brand-line { font-size: 0.9rem; font-weight: 600; color: var(--muted); line-height: 1.3; }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Forum', serif;
+    font-weight: 400;
+    font-size: 2.9rem;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+  }
+  h1 .accent { color: var(--gold-text); font-style: italic; }
+  .lede { font-size: 1.08rem; color: #44445a; margin-bottom: 36px; max-width: 90%; }
+
+  .timer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--gold-soft);
+    color: var(--gold-text);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 100px;
+    margin-bottom: 36px;
+    width: fit-content;
+  }
+  .timer-badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+
+  .btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 17px 28px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+    width: 100%;
+    text-align: center;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+    box-shadow: 0 4px 16px rgba(26,26,46,0.18);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,26,46,0.24); }
+  .btn-primary:active { transform: translateY(0); }
+
+  .intro-foot { margin-top: auto; padding-top: 32px; }
+  .scenario-hint {
+    font-size: 0.9rem;
+    color: var(--muted);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 28px;
+  }
+  .scenario-hint strong { color: var(--ink); }
+
+  /* ---- Progress ---- */
+  .progress-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+  .progress-count { font-size: 0.8rem; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; }
+  .progress-track { flex: 1; height: 4px; background: var(--line); border-radius: 4px; margin-left: 16px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--gold); border-radius: 4px; transition: width .4s ease; width: 0; }
+
+  /* ---- Question ---- */
+  .q-number { font-family: 'Cinzel', serif; font-size: 0.95rem; color: var(--gold-text); font-weight: 600; margin-bottom: 12px; }
+  .q-text { font-family: 'Forum', serif; font-weight: 600; font-size: 1.7rem; line-height: 1.18; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .q-help { font-size: 0.96rem; color: var(--muted); margin-bottom: 36px; }
+  .q-examples {
+    background: var(--violet-soft);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 0.92rem;
+    color: var(--violet-text);
+    margin-bottom: 36px;
+    font-weight: 500;
+    border-left: 3px solid var(--violet);
+  }
+
+  .answers { margin-top: auto; display: flex; flex-direction: column; gap: 12px; }
+  .answer-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 18px 22px;
+    border-radius: 14px;
+    border: 2px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all .15s ease;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+  }
+  .answer-btn:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .answer-btn .key {
+    width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center;
+    font-size: 0.85rem; flex-shrink: 0; background: var(--violet-soft); color: var(--violet);
+  }
+  .answer-btn.yes:hover { border-color: var(--red); }
+  .answer-btn.yes:hover .key { background: var(--red); color: #fff; }
+  .answer-btn.no:hover { border-color: var(--green); }
+  .answer-btn.no:hover .key { background: var(--green); color: #fff; }
+
+  .answer-btn.sel-yes { border-color: var(--red); background: #f9e3e3; }
+  .answer-btn.sel-yes .key { background: var(--red); color: #fff; }
+  .answer-btn.sel-no { border-color: var(--green); background: #e2f1ea; }
+  .answer-btn.sel-no .key { background: var(--green); color: #fff; }
+
+  .quiz-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; }
+  .nav-btn {
+    font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 700;
+    padding: 13px 22px; border-radius: 12px; border: 2px solid var(--ink);
+    background: #ffffff; color: var(--ink); cursor: pointer; transition: all .15s ease;
+  }
+  .nav-btn:hover:not(:disabled) { background: var(--ink); color: #ffffff; transform: translateY(-1px); }
+  .nav-btn#nav-forward { background: var(--ink); color: #ffffff; }
+  .nav-btn#nav-forward:hover:not(:disabled) { background: #050d2a; }
+  .nav-btn:disabled { cursor: not-allowed; border-color: transparent; background: rgba(26,44,80,0.12); color: rgba(26,44,80,0.45); }
+
+  /* ---- Result ---- */
+  .result-badge {
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    padding: 36px 24px; border-radius: 20px; margin-bottom: 28px;
+  }
+  .result-badge .emoji { font-size: 3.4rem; line-height: 1; margin-bottom: 14px; }
+  .result-badge .verdict { font-family: 'Cinzel', serif; font-weight: 900; font-size: 2rem; line-height: 1.1; margin-bottom: 8px; }
+  .result-badge .sub { font-size: 1rem; max-width: 88%; }
+  .badge-green { background: #e2f1ea; color: #145c3e; }
+  .badge-amber { background: #f8ecd4; color: #8a5d14; }
+  .badge-red { background: #f9e3e3; color: #a82a2a; }
+
+  .flags-title { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 16px; }
+  .flag {
+    display: flex; gap: 13px; padding: 16px 0; border-top: 1px solid var(--line);
+  }
+  .flag:last-of-type { border-bottom: 1px solid var(--line); }
+  .flag .mark { flex-shrink: 0; width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; font-size: 0.8rem; font-weight: 700; }
+  .flag.hit .mark { background: var(--red); color: #fff; }
+  .flag.clear .mark { background: var(--green); color: #fff; }
+  .flag .flag-body h4 { font-size: 0.98rem; font-weight: 700; margin-bottom: 3px; }
+  .flag .flag-body p { font-size: 0.9rem; color: var(--muted); }
+
+  /* ---- Email capture ---- */
+  .capture {
+    background: var(--ink); color: var(--paper); border-radius: 20px; padding: 30px 26px; margin-top: 32px;
+  }
+  .capture h3 { font-family: 'Forum', serif; font-weight: 600; font-size: 1.5rem; line-height: 1.18; margin-bottom: 10px; }
+  .capture p { font-size: 0.95rem; opacity: 0.82; margin-bottom: 22px; }
+  .capture input {
+    width: 100%; font-family: 'Inter', sans-serif; font-size: 1rem; padding: 16px 18px;
+    border-radius: 12px; border: none; margin-bottom: 12px; background: rgba(255,255,255,0.14);
+    color: #ffffff; outline: none;
+  }
+  .capture input::placeholder { color: rgba(255,255,255,0.6); }
+  .capture input:focus { background: rgba(255,255,255,0.2); box-shadow: 0 0 0 2px var(--gold); }
+  .btn-capture { background: var(--gold); color: #091742; font-weight: 700; }
+  .btn-capture:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(184,146,58,0.45); }
+  .capture-note { font-size: 0.78rem; opacity: 0.6; margin-top: 14px; text-align: center; }
+
+  .capture.done { text-align: center; }
+  .capture.done .check { font-size: 2.6rem; margin-bottom: 12px; }
+
+  .restart { background: none; border: none; color: var(--violet); font-weight: 600; font-size: 0.92rem; cursor: pointer; margin: 28px auto 0; padding: 10px; display: block; }
+
+  /* ---- Share ---- */
+  .share-nudge { margin-top: 28px; margin-bottom: 4px; }
+  .share-nudge p { font-size: 0.95rem; color: var(--muted); }
+  .share-nudge-btn {
+    background: none; border: none; padding: 0; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 0.95rem; color: var(--gold-text);
+    font-weight: 600; text-decoration: underline; text-underline-offset: 3px;
+  }
+  .share-nudge-btn:hover { color: var(--ink); }
+
+  /* ---- Signature ---- */
+  .signature {
+    margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); text-align: center;
+  }
+  .signature .doc-name { font-family: 'Cinzel', serif; font-weight: 600; font-size: 1.05rem; }
+  .signature .doc-cred { font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
+
+  .disclaimer { font-size: 0.76rem; color: var(--muted); text-align: center; margin-top: 20px; line-height: 1.5; opacity: 0.85; }
+
+  @media (max-width: 400px) {
+    h1 { font-size: 2.3rem; }
+    .q-text { font-size: 1.45rem; }
+  }
+
+  /* Defesa contra modo escuro: a ferramenta é sempre clara.
+     Reafirma explicitamente as cores para navegadores que ignoram color-scheme. */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #091742;
+      --paper: #faf7f0;
+      --muted: #4a5570;
+    }
+    html, body { background: #faf7f0 !important; color: #091742 !important; }
+    .screen, .wrap { background: transparent !important; }
+    .scenario-hint, #fff, .answer-btn { background: #ffffff !important; color: #091742 !important; }
+    .q-text, .q-help, h1, h2, .q-number, .flag .flag-body h4 { color: #091742 !important; }
+    .q-help, .lede, .flag .flag-body p, .brand-line { color: #4a5570 !important; }
+    .capture, .btn-primary, .nav-btn#nav-forward { background: #091742 !important; color: #faf7f0 !important; }
+    .capture input { background: rgba(255,255,255,0.16) !important; color: #ffffff !important; }
+    .btn-capture { background: #A79258 !important; color: #091742 !important; }
+    .nav-btn { background: #ffffff !important; color: #091742 !important; }
+    .nav-btn:disabled { background: rgba(26,44,80,0.12) !important; color: rgba(26,44,80,0.45) !important; }
+    .q-examples { background: #ece8d9 !important; color: #091742 !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- INTRO -->
+  <section class="screen active" id="screen-intro">
+    <div class="brand-mark">
+      <img class="rg-logo" src="data:image/png;base64,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" alt="Logo RG - Dra. Rosamaria Gomes">
+    </div>
+    <div class="eyebrow">Teste rápido de credibilidade</div>
+    <h1>Isso é ciência<br>ou tem <span class="accent">cara de golpe?</span></h1>
+    <p class="lede">Aquela promessa de saúde que você viu no Instagram, no grupo da família ou num anúncio. Vamos descobrir juntas.</p>
+    <div class="timer-badge">Leva menos de 60 segundos</div>
+    <div class="intro-foot">
+      <div class="scenario-hint">
+        <strong>Antes de começar:</strong> pense em uma informação específica de saúde que você viu recentemente — um suplemento, um "tratamento natural", uma dieta ou um produto milagroso.
+      </div>
+      <button class="btn btn-primary" onclick="start()">Começar o teste</button>
+    </div>
+  </section>
+
+  <!-- QUESTIONS -->
+  <section class="screen" id="screen-quiz">
+    <div class="progress-head">
+      <span class="progress-count" id="progress-count">01 / 05</span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <div class="q-number" id="q-number">Pergunta 1</div>
+    <h2 class="q-text" id="q-text"></h2>
+    <p class="q-help" id="q-help"></p>
+    <div class="q-examples" id="q-examples"></div>
+    <div class="answers">
+      <button class="answer-btn yes" id="btn-yes" onclick="answer(true)">
+        <span class="key">Sim</span> Sim, tem isso
+      </button>
+      <button class="answer-btn no" id="btn-no" onclick="answer(false)">
+        <span class="key">Não</span> Não, não tem
+      </button>
+    </div>
+    <div class="quiz-nav">
+      <button class="nav-btn" id="nav-back" onclick="goBack()">← Voltar</button>
+      <button class="nav-btn" id="nav-forward" onclick="goForward()">Avançar →</button>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="screen" id="screen-result">
+    <div class="result-badge" id="result-badge">
+      <div class="emoji" id="result-emoji"></div>
+      <div class="verdict" id="result-verdict"></div>
+      <div class="sub" id="result-sub"></div>
+    </div>
+
+    <div class="flags-title">O que analisamos na sua resposta</div>
+    <div id="flags-list"></div>
+
+    <div id="share-section"></div>
+
+    <div class="capture" id="capture-box">
+      <h3>Quer aprender a fazer isso sozinha?</h3>
+      <p>Receba o guia <strong>"10 Sinais de Fraude em Saúde"</strong> — um PDF gratuito para você nunca mais cair em golpe de pseudociência.</p>
+      <input type="email" id="email-input" placeholder="Seu melhor e-mail" autocomplete="email">
+      <button class="btn btn-capture" onclick="submitEmail()">Receber o guia gratuito</button>
+      <div class="capture-note">Sem spam. Você pode sair quando quiser.</div>
+    </div>
+
+    <button class="restart" onclick="restart()">↺ Testar outra informação</button>
+
+    <div class="signature">
+      <div class="doc-name">Dra. Rosamaria Gomes</div>
+      <div class="doc-cred">Clínica Médica · CRM/AL 5586 · RQE 5126</div>
+      <div class="doc-cred" style="margin-top:6px"><a href="https://instagram.com/rosamariaprofessora" target="_blank" rel="noopener" style="color:var(--gold-text);text-decoration:none;font-weight:600">@rosamariaprofessora</a></div>
+    </div>
+    <p class="disclaimer">Esta ferramenta é educativa e não substitui consulta médica. Em caso de dúvida sobre qualquer tratamento ou medicação, procure um profissional de saúde de confiança.</p>
+  </section>
+
+</div>
+
+<script>
+  const QUESTIONS = [
+    {
+      weight: 1,
+      text: "A promessa usa palavras como “milagroso”, “cura definitiva” ou “a indústria não quer que você saiba”?",
+      help: "Linguagem sensacionalista e teoria de conspiração são a assinatura do marketing de pseudociência.",
+      examples: "“100% natural, sem efeitos colaterais” · “A indústria farmacêutica esconde isso de você” · “O que os médicos não querem que você saiba”",
+      flagHit: { title: "Linguagem milagrosa ou conspiratória", desc: "Ciência de verdade fala em probabilidades e evidências. Quando alguém diz que “a indústria esconde a cura”, está usando medo e desconfiança para vender — não dados." },
+      flagClear: { title: "Linguagem sóbria", desc: "Bom sinal: não apela para promessas absolutas." }
+    },
+    {
+      weight: 1,
+      text: "Quem está divulgando ganha dinheiro se você comprar?",
+      help: "Vende o produto, recebe comissão, tem link na bio ou é dono da marca.",
+      examples: "“Use meu cupom” · “Link na bio com desconto” · perfil que só promove a própria marca",
+      flagHit: { title: "Conflito de interesse", desc: "Quem lucra com a venda não é uma fonte neutra sobre se aquilo funciona." },
+      flagClear: { title: "Sem interesse financeiro aparente", desc: "Bom sinal: quem informa não parece lucrar diretamente com você." }
+    },
+    {
+      weight: 2,
+      text: "A evidência é vaga — “estudos comprovam” ou um “protocolo” que ninguém viu publicado?",
+      help: "Fonte séria tem nome: a instituição, o periódico, os autores. “Protocolo” sem estudo publicado é só uma palavra bonita.",
+      examples: "“Cientistas americanos descobriram” · “Meu protocolo exclusivo” · “Estudos comprovam” (sem citar quais)",
+      flagHit: { title: "Evidência fantasma", desc: "“Estudos comprovam” sem referência — ou um “protocolo” que nunca foi publicado nem testado em estudo de qualidade — é uma das fraquezas mais graves. A palavra “protocolo” soa científica, mas sozinha não prova nada: o que vale é a evidência publicada por trás dela, que sempre pode ser verificada." },
+      flagClear: { title: "Evidência rastreável", desc: "Bom sinal: é possível verificar de onde vem a informação e checar a fonte original." }
+    },
+    {
+      weight: 1,
+      text: "O argumento principal é depoimento — “comigo funcionou”, antes-e-depois, famosos?",
+      help: "História emociona, mas não prova. Um caso não vira regra.",
+      examples: "“Perdi 10kg em 2 semanas” · fotos de antes e depois · “a famosa tal usa”",
+      flagHit: { title: "Prova anedótica", desc: "Depoimentos individuais não mostram se algo funciona — só dados de muitas pessoas mostram." },
+      flagClear: { title: "Não se apoia só em histórias", desc: "Bom sinal: vai além do “comigo funcionou”." }
+    },
+    {
+      weight: 3,
+      text: "Sugere que você abandone um tratamento médico ou pare uma medicação?",
+      help: "Este é o sinal mais perigoso de todos.",
+      examples: "“Jogue fora seus remédios” · “seu médico está te envenenando” · “substitua por este método natural”",
+      flagHit: { title: "⚠ Risco de abandono de tratamento", desc: "Este é o alerta mais grave. Parar um tratamento prescrito por causa de um post pode custar a vida. Converse com seu médico antes de qualquer mudança." },
+      flagClear: { title: "Não pede para largar tratamento", desc: "Bom sinal: não sugere abandonar cuidados médicos." }
+    }
+  ];
+
+  let current = 0;
+  let answers = [];
+
+  function start() {
+    current = 0; answers = [];
+    showScreen('quiz');
+    renderQuestion();
+  }
+
+  function showScreen(name) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + name).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function renderQuestion() {
+    const q = QUESTIONS[current];
+    const n = current + 1;
+    document.getElementById('progress-count').textContent =
+      String(n).padStart(2, '0') + ' / 05';
+    document.getElementById('progress-fill').style.width = (n / QUESTIONS.length * 100) + '%';
+    document.getElementById('q-number').textContent = 'Pergunta ' + n;
+    document.getElementById('q-text').textContent = q.text;
+    document.getElementById('q-help').textContent = q.help;
+    document.getElementById('q-examples').textContent = q.examples;
+
+    // Refletir resposta já dada (se houver)
+    const btnYes = document.getElementById('btn-yes');
+    const btnNo = document.getElementById('btn-no');
+    btnYes.className = 'answer-btn yes';
+    btnNo.className = 'answer-btn no';
+    if (answers[current] === true) btnYes.classList.add('sel-yes');
+    if (answers[current] === false) btnNo.classList.add('sel-no');
+
+    // Controlar botões de navegação
+    const back = document.getElementById('nav-back');
+    const fwd = document.getElementById('nav-forward');
+    back.disabled = (current === 0);
+    // Avançar só habilita se a pergunta atual já foi respondida
+    const answered = (answers[current] === true || answers[current] === false);
+    fwd.textContent = (current === QUESTIONS.length - 1) ? 'Ver resultado →' : 'Avançar →';
+    fwd.disabled = !answered;
+  }
+
+  function answer(isYes) {
+    const wasAnswered = (answers[current] === true || answers[current] === false);
+    answers[current] = isYes;
+    renderQuestion();
+    // Auto-avança apenas na primeira vez que responde; ao revisar, deixa a pessoa
+    // conferir e usar "Avançar" manualmente.
+    if (!wasAnswered) {
+      setTimeout(() => {
+        if (current < QUESTIONS.length - 1) {
+          current++;
+          renderQuestion();
+          window.scrollTo({top:0, behavior:'smooth'});
+        } else {
+          showResult();
+        }
+      }, 280);
+    }
+  }
+
+  function goBack() {
+    if (current > 0) { current--; renderQuestion(); window.scrollTo({top:0, behavior:'smooth'}); }
+  }
+
+  function goForward() {
+    const answered = (answers[current] === true || answers[current] === false);
+    if (!answered) return;
+    if (current < QUESTIONS.length - 1) { current++; renderQuestion(); window.scrollTo({top:0, behavior:'smooth'}); }
+    else { showResult(); }
+  }
+
+  function showResult() {
+    let score = 0;
+    let abandonHit = false;
+    answers.forEach((a, i) => {
+      if (a) {
+        score += QUESTIONS[i].weight;
+        if (i === 4) abandonHit = true;
+      }
+    });
+
+    // Verdict logic: abandono de tratamento sozinho = vermelho
+    let level;
+    if (abandonHit || score >= 4) level = 'red';
+    else if (score >= 2) level = 'amber';
+    else level = 'green';
+
+    const badge = document.getElementById('result-badge');
+    const emoji = document.getElementById('result-emoji');
+    const verdict = document.getElementById('result-verdict');
+    const sub = document.getElementById('result-sub');
+    badge.className = 'result-badge badge-' + level;
+
+    if (level === 'green') {
+      emoji.textContent = '🟢';
+      verdict.textContent = 'Sinal Verde';
+      sub.textContent = 'Baixo risco de fraude. Mesmo assim, mantenha sempre o olhar crítico.';
+    } else if (level === 'amber') {
+      emoji.textContent = '🟡';
+      verdict.textContent = 'Sinal Amarelo';
+      sub.textContent = 'Atenção. Há indícios de marketing agressivo ou distorção científica. Investigue bem antes de confiar ou comprar.';
+    } else {
+      emoji.textContent = '🔴';
+      verdict.textContent = 'Sinal Vermelho';
+      sub.textContent = abandonHit
+        ? 'Perigo máximo. Sugerir o abandono de tratamento é o sinal mais grave de charlatanismo. Não tome decisões sem falar com seu médico.'
+        : 'Perigo máximo. Reúne características clássicas de pseudociência de internet.';
+    }
+
+    // Render flags
+    const list = document.getElementById('flags-list');
+    list.innerHTML = '';
+    answers.forEach((a, i) => {
+      const q = QUESTIONS[i];
+      const info = a ? q.flagHit : q.flagClear;
+      const div = document.createElement('div');
+      div.className = 'flag ' + (a ? 'hit' : 'clear');
+      div.innerHTML =
+        '<div class="mark">' + (a ? '!' : '✓') + '</div>' +
+        '<div class="flag-body"><h4>' + info.title + '</h4><p>' + info.desc + '</p></div>';
+      list.appendChild(div);
+    });
+
+    // reset capture box
+    document.getElementById('capture-box').className = 'capture';
+    document.getElementById('capture-box').innerHTML = captureHTML(level);
+
+    // share section
+    const shareSection = document.getElementById('share-section');
+    if (shareSection) {
+      const verdictText = level === 'green' ? 'Sinal Verde 🟢' : level === 'amber' ? 'Sinal Amarelo 🟡' : 'Sinal Vermelho 🔴';
+      shareSection.innerHTML =
+        '<div class="share-nudge">' +
+        '<p>Conhece alguém que precisa ver isso? <button class="share-nudge-btn" onclick="shareResult(\'' + verdictText + '\')">Compartilhe <em>Ciência ou Golpe?</em> e ajude outras pessoas.</button></p>' +
+        '</div>';
+    }
+
+    showScreen('result');
+  }
+
+  function captureHTML(level) {
+    const titles = {
+      green: 'Bom olhar crítico — mas golpes evoluem.',
+      amber: 'Você detectou sinais de alerta.',
+      red: 'Essa é uma armadilha perigosa.'
+    };
+    return '<h3>' + (titles[level] || titles.amber) + '</h3>' +
+      '<p>Cadastre-se para receber o guia <strong>"10 Sinais de Fraude em Saúde"</strong>.</p>' +
+      '<iframe width="100%" height="220" src="https://6b6b5e96.sibforms.com/v2/serve/MUIFANKGReCYJYQX7EjB_Gv9Ika8u2HA8EjY_ILwM8ll9bg5IpXCwbTu67VvLnnHUySdHoNHPF_KyE14Jg8xbJIxRCgFGfRFPH3ycAMcsytiF0UjrheYZXyA5XlaAZUGkCcrcRn2vAIHXMqBrtqUa3KqiZIOQEvS-B3MrFlFcSrvzd3avseqiQQnCTZ5kLiSbganZUt1OQ-3_WgUEA==" frameborder="0" scrolling="auto" allowfullscreen style="display:block;border-radius:10px;margin-top:16px"></iframe>';
+  }
+
+  function shareResult(verdict) {
+    const text = 'Fiz o teste "Ciência ou Golpe?" da Dra. Rosamaria Gomes e tirei ' + verdict + '. Você também deveria testar!';
+    if (navigator.share) {
+      navigator.share({ title: 'Ciência ou Golpe?', text: text, url: window.location.href });
+    } else {
+      copyToClipboard(text + ' ' + window.location.href);
+      alert('Texto copiado! Cole onde quiser compartilhar.');
+    }
+  }
+
+  function copyLink() {
+    copyToClipboard(window.location.href);
+    alert('Link copiado!');
+  }
+
+  function copyToClipboard(text) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+  }
+
+
+  function restart() {
+    showScreen('intro');
+  }
+</script>
+</body>
+</html>
