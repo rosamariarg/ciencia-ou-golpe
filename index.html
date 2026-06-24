@@ -43,7 +43,6 @@
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
   }
 
   /* ---- Screens ---- */
@@ -556,4 +555,13 @@
       const ta = document.createElement('textarea');
       ta.value = text; document.body.appendChild(ta);
       ta.select(); document.execCommand('copy');
-      document.body.remo
+      document.body.removeChild(ta);
+    }
+  }
+
+  function restart() {
+    showScreen('intro');
+  }
+</script>
+</body>
+</html>
