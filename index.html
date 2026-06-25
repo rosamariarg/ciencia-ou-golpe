@@ -353,43 +353,43 @@
   const QUESTIONS = [
     {
       weight: 1,
-      text: "A promessa usa palavras como "milagroso", "cura definitiva" ou "a indústria não quer que você saiba"?",
-      help: "Linguagem sensacionalista e teoria de conspiração são a assinatura do marketing de pseudociência.",
-      examples: ""100% natural, sem efeitos colaterais" · "A indústria farmacêutica esconde isso de você" · "O que os médicos não querem que você saiba"",
-      flagHit: { title: "Linguagem milagrosa ou conspiratória", desc: "Ciência de verdade fala em probabilidades e evidências. Quando alguém diz que "a indústria esconde a cura", está usando medo e desconfiança para vender — não dados." },
-      flagClear: { title: "Linguagem sóbria", desc: "Bom sinal: não apela para promessas absolutas." }
+      text: 'A promessa usa palavras como "milagroso", "cura definitiva" ou "a indústria não quer que você saiba"?',
+      help: 'Linguagem sensacionalista e teoria de conspiração são a assinatura do marketing de pseudociência.',
+      examples: '"100% natural, sem efeitos colaterais" · "A indústria farmacêutica esconde isso de você" · "O que os médicos não querem que você saiba"',
+      flagHit: { title: 'Linguagem milagrosa ou conspiratória', desc: 'Ciência de verdade fala em probabilidades e evidências. Quando alguém diz que "a indústria esconde a cura", está usando medo e desconfiança para vender — não dados.' },
+      flagClear: { title: 'Linguagem sóbria', desc: 'Bom sinal: não apela para promessas absolutas.' }
     },
     {
       weight: 1,
-      text: "Quem está divulgando ganha dinheiro se você comprar?",
-      help: "Vende o produto, recebe comissão, tem link na bio ou é dono da marca.",
-      examples: ""Use meu cupom" · "Link na bio com desconto" · perfil que só promove a própria marca",
-      flagHit: { title: "Conflito de interesse", desc: "Quem lucra com a venda não é uma fonte neutra sobre se aquilo funciona." },
-      flagClear: { title: "Sem interesse financeiro aparente", desc: "Bom sinal: quem informa não parece lucrar diretamente com você." }
+      text: 'Quem está divulgando ganha dinheiro se você comprar?',
+      help: 'Vende o produto, recebe comissão, tem link na bio ou é dono da marca.',
+      examples: '"Use meu cupom" · "Link na bio com desconto" · perfil que só promove a própria marca',
+      flagHit: { title: 'Conflito de interesse', desc: 'Quem lucra com a venda não é uma fonte neutra sobre se aquilo funciona.' },
+      flagClear: { title: 'Sem interesse financeiro aparente', desc: 'Bom sinal: quem informa não parece lucrar diretamente com você.' }
     },
     {
       weight: 2,
-      text: "A evidência é vaga — "estudos comprovam" ou um "protocolo" que ninguém viu publicado?",
-      help: "Fonte séria tem nome: a instituição, o periódico, os autores. "Protocolo" sem estudo publicado é só uma palavra bonita.",
-      examples: ""Cientistas americanos descobriram" · "Meu protocolo exclusivo" · "Estudos comprovam" (sem citar quais)",
-      flagHit: { title: "Evidência fantasma", desc: ""Estudos comprovam" sem referência — ou um "protocolo" que nunca foi publicado nem testado em estudo de qualidade — é uma das fraquezas mais graves. A palavra "protocolo" soa científica, mas sozinha não prova nada: o que vale é a evidência publicada por trás dela, que sempre pode ser verificada." },
-      flagClear: { title: "Evidência rastreável", desc: "Bom sinal: é possível verificar de onde vem a informação e checar a fonte original." }
+      text: 'A evidência é vaga — "estudos comprovam" ou um "protocolo" que ninguém viu publicado?',
+      help: 'Fonte séria tem nome: a instituição, o periódico, os autores. "Protocolo" sem estudo publicado é só uma palavra bonita.',
+      examples: '"Cientistas americanos descobriram" · "Meu protocolo exclusivo" · "Estudos comprovam" (sem citar quais)',
+      flagHit: { title: 'Evidência fantasma', desc: '"Estudos comprovam" sem referência — ou um "protocolo" que nunca foi publicado nem testado em estudo de qualidade — é uma das fraquezas mais graves. A palavra "protocolo" soa científica, mas sozinha não prova nada: o que vale é a evidência publicada por trás dela, que sempre pode ser verificada.' },
+      flagClear: { title: 'Evidência rastreável', desc: 'Bom sinal: é possível verificar de onde vem a informação e checar a fonte original.' }
     },
     {
       weight: 1,
-      text: "O argumento principal é depoimento — "comigo funcionou", antes-e-depois, famosos?",
-      help: "História emociona, mas não prova. Um caso não vira regra.",
-      examples: ""Perdi 10kg em 2 semanas" · fotos de antes e depois · "a famosa tal usa"",
-      flagHit: { title: "Prova anedótica", desc: "Depoimentos individuais não mostram se algo funciona — só dados de muitas pessoas mostram." },
-      flagClear: { title: "Não se apoia só em histórias", desc: "Bom sinal: vai além do "comigo funcionou"." }
+      text: 'O argumento principal é depoimento — "comigo funcionou", antes-e-depois, famosos?',
+      help: 'História emociona, mas não prova. Um caso não vira regra.',
+      examples: '"Perdi 10kg em 2 semanas" · fotos de antes e depois · "a famosa tal usa"',
+      flagHit: { title: 'Prova anedótica', desc: 'Depoimentos individuais não mostram se algo funciona — só dados de muitas pessoas mostram.' },
+      flagClear: { title: 'Não se apoia só em histórias', desc: 'Bom sinal: vai além do "comigo funcionou".' }
     },
     {
       weight: 3,
-      text: "Sugere que você abandone um tratamento médico ou pare uma medicação?",
-      help: "Este é o sinal mais perigoso de todos.",
-      examples: ""Jogue fora seus remédios" · "seu médico está te envenenando" · "substitua por este método natural"",
-      flagHit: { title: "⚠ Risco de abandono de tratamento", desc: "Este é o alerta mais grave. Parar um tratamento prescrito por causa de um post pode custar a vida. Converse com seu médico antes de qualquer mudança." },
-      flagClear: { title: "Não pede para largar tratamento", desc: "Bom sinal: não sugere abandonar cuidados médicos." }
+      text: 'Sugere que você abandone um tratamento médico ou pare uma medicação?',
+      help: 'Este é o sinal mais perigoso de todos.',
+      examples: '"Jogue fora seus remédios" · "seu médico está te envenenando" · "substitua por este método natural"',
+      flagHit: { title: '⚠ Risco de abandono de tratamento', desc: 'Este é o alerta mais grave. Parar um tratamento prescrito por causa de um post pode custar a vida. Converse com seu médico antes de qualquer mudança.' },
+      flagClear: { title: 'Não pede para largar tratamento', desc: 'Bom sinal: não sugere abandonar cuidados médicos.' }
     }
   ];
 
